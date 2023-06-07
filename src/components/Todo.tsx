@@ -1,4 +1,5 @@
 import type { Todo } from "../types";
+import { api } from "../utils/api";
 
 type TodoProps = {
   todo: Todo;
@@ -6,6 +7,14 @@ type TodoProps = {
 
 export function Todo({ todo }: TodoProps) {
   const { id, content, done } = todo;
+
+  const ctx = api.useContext();
+
+  const { mutate: deleteMutation } = api.todo.delete.useMutation({
+    onSettled: async () => {
+      await ctx.todo.getAll.invalidate();
+    },
+  });
 
   return (
     <div>
@@ -18,7 +27,12 @@ export function Todo({ todo }: TodoProps) {
           />
           <span className="label-text text-lg text-white">{content}</span>
         </label>
-        <button className="btn-accent btn-sm btn">delete</button>
+        <button
+          onClick={() => deleteMutation(id)}
+          className="btn-accent btn-sm btn"
+        >
+          delete
+        </button>
       </div>
     </div>
   );
