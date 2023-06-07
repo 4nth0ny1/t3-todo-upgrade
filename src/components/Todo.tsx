@@ -1,12 +1,16 @@
 import type { Todo } from "../types";
 import { api } from "../utils/api";
 
+import { Fragment, useState } from "react";
+import { EditTodo } from "./EditTodo";
+
 type TodoProps = {
   todo: Todo;
 };
 
 export function Todo({ todo }: TodoProps) {
   const { id, content, done } = todo;
+  const [editing, setEditing] = useState(false);
 
   const ctx = api.useContext();
 
@@ -23,26 +27,42 @@ export function Todo({ todo }: TodoProps) {
   });
 
   return (
-    <div>
-      <div className="form-control flex flex-row justify-between gap-4 border-b p-4">
-        <label className="label cursor-pointer gap-4">
-          <input
-            type="checkbox"
-            checked={done}
-            className="checkbox-secondary checkbox"
-            onChange={(e) => doneMutation({ id, done: e.target.checked })}
-          />
-          <span className="label-text text-lg text-white">{content}</span>
-        </label>
-        <div className="flex flex-col justify-center">
-          <button
-            onClick={() => deleteMutation(id)}
-            className="btn-accent btn-sm btn"
-          >
-            delete
-          </button>
+    <Fragment>
+      {editing ? (
+        <EditTodo todo={todo} />
+      ) : (
+        <div>
+          <div className="form-control flex flex-row justify-between gap-4 border-b p-4">
+            <label className="label cursor-pointer gap-4">
+              <input
+                type="checkbox"
+                checked={done}
+                className="checkbox-secondary checkbox"
+                onChange={(e) => doneMutation({ id, done: e.target.checked })}
+              />
+              <span className="label-text text-lg text-white">{content}</span>
+            </label>
+            <div className="flex flex-col justify-center">
+              <button
+                className="btn-warning btn-sm btn"
+                type="button"
+                onClick={() => setEditing(!editing)}
+              >
+                edit
+              </button>
+            </div>
+            <div className="flex flex-col justify-center">
+              <button
+                onClick={() => deleteMutation(id)}
+                className="btn-accent btn-sm btn"
+                type="button"
+              >
+                delete
+              </button>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
+      )}
+    </Fragment>
   );
 }
