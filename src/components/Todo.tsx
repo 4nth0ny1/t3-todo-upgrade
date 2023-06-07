@@ -34,12 +34,14 @@ export function Todo({ todo }: TodoProps) {
           />
           <span className="label-text text-lg text-white">{content}</span>
         </label>
-        <button
-          onClick={() => deleteMutation(id)}
-          className="btn-accent btn-sm btn"
-        >
-          delete
-        </button>
+        <div className="flex flex-col justify-center">
+          <button
+            onClick={() => deleteMutation(id)}
+            className="btn-accent btn-sm btn"
+          >
+            delete
+          </button>
+        </div>
       </div>
     </div>
   );
