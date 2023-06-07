@@ -6,3 +6,8 @@ type RouterOutputs = inferRouterOutputs<AppRouter>;
 type allTodosOutput = RouterOutputs['todo']['getAll']
 
 export type Todo = allTodosOutput[number]
+
+export const getSingleTodo = z.object({
+    todoId: z.string().cuid(),
+  })
+  

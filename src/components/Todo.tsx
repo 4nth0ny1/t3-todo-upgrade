@@ -1,6 +1,6 @@
 import type { Todo } from "../types";
 import { api } from "../utils/api";
-
+import Link from "next/link";
 import { Fragment, useState } from "react";
 import { EditTodo } from "./EditTodo";
 
@@ -42,6 +42,13 @@ export function Todo({ todo }: TodoProps) {
               />
               <span className="label-text text-lg text-white">{content}</span>
             </label>
+            <div className="flex flex-col justify-center">
+              <Link href={`/todo/${id}`}>
+                <button className="btn-sm btn" type="button">
+                  show
+                </button>
+              </Link>
+            </div>
             <div className="flex flex-col justify-center">
               <button
                 className="btn-warning btn-sm btn"

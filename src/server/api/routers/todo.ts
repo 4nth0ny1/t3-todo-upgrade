@@ -4,11 +4,22 @@ import {
   protectedProcedure,
   publicProcedure,
 } from "~/server/api/trpc";
+import {getSingleTodo} from '../../../types'
 
 export const todoRouter = createTRPCRouter({
   getAll: publicProcedure
   .query(async ({ ctx }) => {
     return await ctx.prisma.todo.findMany();
+  }),
+
+  getOne: publicProcedure
+  .input(getSingleTodo)
+  .query(async({ctx, input}) => {
+    return await ctx.prisma.todo.findUnique({
+      where: {
+        id: input.todoId
+      }
+    })
   }),
 
   delete: protectedProcedure
