@@ -9,10 +9,14 @@ export function Todos() {
 
   return (
     <div className="w-1/2 p-10 text-white">
-      <h2 className="text-center text-3xl">todos</h2>
-      {todos?.map((todo) => {
-        return <Todo key={todo.id} todo={todo} />;
-      })}
+      <h2 className="border-b pb-4 text-3xl">todos</h2>
+      {todos.length ? (
+        todos?.map((todo) => {
+          return <Todo key={todo.id} todo={todo} />;
+        })
+      ) : (
+        <div className="py-4 text-center text-xl">Create your first todo</div>
+      )}
     </div>
   );
 }

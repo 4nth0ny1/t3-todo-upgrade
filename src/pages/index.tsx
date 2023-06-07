@@ -3,6 +3,7 @@ import { signIn, signOut, useSession } from "next-auth/react";
 import Head from "next/head";
 import { api } from "~/utils/api";
 import { Todos } from "../components/Todos";
+import { CreateTodo } from "../components/CreateTodo";
 
 const Home: NextPage = () => {
   const hello = api.example.hello.useQuery({ text: "from tRPC" });
@@ -28,7 +29,7 @@ const Home: NextPage = () => {
         </div>
 
         <div className="border-2-white w-full border-b"></div>
-
+        <CreateTodo />
         <Todos />
       </main>
     </>
