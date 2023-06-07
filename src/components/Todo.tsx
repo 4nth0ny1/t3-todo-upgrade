@@ -16,14 +16,21 @@ export function Todo({ todo }: TodoProps) {
     },
   });
 
+  const { mutate: doneMutation } = api.todo.toggle.useMutation({
+    onSettled: async () => {
+      await ctx.todo.getAll.invalidate();
+    },
+  });
+
   return (
     <div>
       <div className="form-control flex flex-row justify-between gap-4 border-b p-4">
         <label className="label cursor-pointer gap-4">
           <input
             type="checkbox"
-            checked="checked"
+            checked={done}
             className="checkbox-secondary checkbox"
+            onChange={(e) => doneMutation({ id, done: e.target.checked })}
           />
           <span className="label-text text-lg text-white">{content}</span>
         </label>
