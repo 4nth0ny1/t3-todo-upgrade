@@ -3,6 +3,7 @@ import { api } from "../utils/api";
 import Link from "next/link";
 import { Fragment, useState } from "react";
 import { EditTodo } from "./EditTodo";
+import { useSession } from "next-auth/react";
 
 type TodoProps = {
   todo: Todo;
@@ -11,6 +12,7 @@ type TodoProps = {
 export function Todo({ todo }: TodoProps) {
   const { id, content, done } = todo;
   const [editing, setEditing] = useState(false);
+  const { data: sessionData } = useSession();
 
   const ctx = api.useContext();
 
@@ -49,24 +51,28 @@ export function Todo({ todo }: TodoProps) {
                 </button>
               </Link>
             </div>
-            <div className="flex flex-col justify-center">
-              <button
-                className="btn-warning btn-sm btn"
-                type="button"
-                onClick={() => setEditing(!editing)}
-              >
-                edit
-              </button>
-            </div>
-            <div className="flex flex-col justify-center">
-              <button
-                onClick={() => deleteMutation(id)}
-                className="btn-accent btn-sm btn"
-                type="button"
-              >
-                delete
-              </button>
-            </div>
+            {sessionData?.user && (
+              <div className="flex flex-col justify-center">
+                <button
+                  className="btn-warning btn-sm btn"
+                  type="button"
+                  onClick={() => setEditing(!editing)}
+                >
+                  edit
+                </button>
+              </div>
+            )}
+            {sessionData?.user && (
+              <div className="flex flex-col justify-center">
+                <button
+                  onClick={() => deleteMutation(id)}
+                  className="btn-accent btn-sm btn"
+                  type="button"
+                >
+                  delete
+                </button>
+              </div>
+            )}
           </div>
         </div>
       )}
