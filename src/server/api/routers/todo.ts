@@ -18,7 +18,7 @@ export const todoRouter = createTRPCRouter({
     return await ctx.prisma.todo.findUnique({
       where: {
         id: input.todoId
-      }
+      }, 
     })
   }),
 
