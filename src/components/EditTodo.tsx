@@ -4,11 +4,10 @@ import { useState } from "react";
 
 type TodoProps = {
   todo: Todo;
-  // isEditing: boolean;
-  // onEdit: any;
+  onEdit: () => void;
 };
 
-export function EditTodo({ todo }: TodoProps) {
+export function EditTodo({ todo, onEdit }: TodoProps) {
   const { id, content } = todo;
   const ctx = api.useContext();
   const [updatedContent, setUpdatedContent] = useState({
@@ -19,7 +18,7 @@ export function EditTodo({ todo }: TodoProps) {
   const { mutate: updateMutation } = api.todo.update.useMutation({
     onSettled: async () => {
       await ctx.todo.getAll.invalidate();
-      setUpdatedContent({ todoId: "", content: "" });
+      onEdit();
     },
   });
 
@@ -40,12 +39,7 @@ export function EditTodo({ todo }: TodoProps) {
         }
       />
 
-      <button
-        // onClick={setEditing(!editing)}
-        className="btn-primary btn rounded-xl"
-      >
-        Confirm Change
-      </button>
+      <button className="btn-primary btn rounded-xl">Confirm Change</button>
     </form>
   );
 }
