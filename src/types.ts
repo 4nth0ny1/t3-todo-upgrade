@@ -11,3 +11,7 @@ export const getSingleTodo = z.object({
     todoId: z.string().cuid(),
   })
   
+export const updateTodo = z.object({
+  todoId: z.string().cuid(),
+  content: z.string()
+})

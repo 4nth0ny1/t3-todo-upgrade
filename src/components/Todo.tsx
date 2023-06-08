@@ -29,7 +29,11 @@ export function Todo({ todo }: TodoProps) {
   return (
     <Fragment>
       {editing ? (
-        <EditTodo todo={todo} />
+        <EditTodo
+          todo={todo}
+          // isEditing={editing === editing}
+          // onEdit={() => setEditing(editing)}
+        />
       ) : (
         <div>
           <div className="form-control flex flex-row justify-between gap-4 p-4">

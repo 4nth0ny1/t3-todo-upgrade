@@ -4,7 +4,7 @@ import {
   protectedProcedure,
   publicProcedure,
 } from "~/server/api/trpc";
-import {getSingleTodo} from '../../../types'
+import {getSingleTodo, updateTodo} from '../../../types'
 
 export const todoRouter = createTRPCRouter({
   getAll: publicProcedure
@@ -62,6 +62,20 @@ export const todoRouter = createTRPCRouter({
         done
       }
     })
+  }), 
+
+  update: protectedProcedure
+  .input(updateTodo)
+  .mutation(async ({ ctx, input}) => {
+    const todo = await ctx.prisma.todo.update({
+      where: {
+        id: input.todoId
+      },
+      data: {
+        content: input.content
+      }
+    })
+    return todo
   })
 
 });
