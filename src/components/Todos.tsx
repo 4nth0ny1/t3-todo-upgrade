@@ -9,7 +9,7 @@ export function Todos() {
 
   return (
     <div className="w-1/2 p-10 text-white">
-      <h2 className="border-b pb-4 text-3xl">todos</h2>
+      <h2 className="border-b pb-4 text-center text-3xl">todos</h2>
       {todos.length ? (
         todos?.map((todo) => {
           return <Todo key={todo.id} todo={todo} />;

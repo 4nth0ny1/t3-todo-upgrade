@@ -32,8 +32,8 @@ export function Todo({ todo }: TodoProps) {
         <EditTodo todo={todo} />
       ) : (
         <div>
-          <div className="form-control flex flex-row justify-between gap-4 border-b p-4">
-            <label className="label cursor-pointer gap-4">
+          <div className="form-control flex flex-row justify-between gap-4 p-4">
+            <label className="label min-w-[300px] cursor-pointer gap-4">
               <input
                 type="checkbox"
                 checked={done}
