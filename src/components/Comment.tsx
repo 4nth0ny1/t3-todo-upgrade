@@ -2,6 +2,7 @@ import dayjs from "dayjs";
 import type { Comment } from "../types";
 import { useSession } from "next-auth/react";
 import relativeTime from "dayjs/plugin/relativeTime";
+import { api } from "../utils/api";
 
 type CommentProps = {
   comment: Comment;
@@ -10,8 +11,17 @@ type CommentProps = {
 dayjs.extend(relativeTime);
 
 export function Comment({ comment }: CommentProps) {
-  const { message } = comment;
+  const { id, message } = comment;
   const { data: sessionData } = useSession();
+
+  const ctx = api.useContext();
+
+  const { mutate: deleteCommentMutation } =
+    api.comment.deleteComment.useMutation({
+      onSettled: async () => {
+        await ctx.comment.getAllComments.invalidate();
+      },
+    });
 
   return (
     <div className="border-b p-4">
@@ -21,13 +31,16 @@ export function Comment({ comment }: CommentProps) {
           comment.createdAt
         ).fromNow()}`}</span>
       </div>
-      {message ? (
-        <div className="flex">
-          <p className="">{message}</p>
-        </div>
-      ) : (
-        <p>No Comments Yet</p>
-      )}
+      <div className="flex flex-row justify-between">
+        <p className="pr-4">{message}</p>
+        <button
+          onClick={() => deleteCommentMutation(id)}
+          className="btn-accent btn-sm btn w-[70px]"
+          type="button"
+        >
+          delete
+        </button>
+      </div>
     </div>
   );
 }

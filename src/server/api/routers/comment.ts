@@ -45,6 +45,16 @@ export const commentRouter = createTRPCRouter({
         }
       }
     })
-  })
+  }), 
+
+  deleteComment: protectedProcedure
+  .input(z.string())
+  .mutation(({ ctx, input}) => {
+    return ctx.prisma.comment.delete({
+      where: {
+        id: input
+      }
+    })
+  }), 
 
 });
