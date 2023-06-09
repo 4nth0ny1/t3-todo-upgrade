@@ -15,7 +15,7 @@ export function Comments({ todoId }: DataIdProps) {
   if (isError) return <div>Something went wrong</div>;
   return (
     <div className="mb-4 w-1/2 rounded-xl bg-purple-700 p-4 text-white">
-      <h2 className="text-center text-2xl">Comments</h2>
+      <h2 className="text-center text-2xl">Comments: {data.length}</h2>
       <CreateComment />
       {data?.map((comment) => {
         return <Comment key={comment.id} comment={comment} />;

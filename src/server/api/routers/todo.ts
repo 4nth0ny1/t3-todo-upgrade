@@ -9,7 +9,11 @@ import {getSingleTodo, updateTodo} from '../../../types'
 export const todoRouter = createTRPCRouter({
   getAll: publicProcedure
   .query(async ({ ctx }) => {
-    return await ctx.prisma.todo.findMany();
+    return await ctx.prisma.todo.findMany({
+      include: {
+        comments: true
+      }
+    });
   }),
 
   getOne: publicProcedure

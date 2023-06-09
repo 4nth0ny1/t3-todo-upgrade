@@ -10,7 +10,7 @@ type TodoProps = {
 };
 
 export function Todo({ todo }: TodoProps) {
-  const { id, content, done } = todo;
+  const { id, content, done, comments } = todo;
   const [editing, setEditing] = useState(false);
   const { data: sessionData } = useSession();
 
@@ -73,6 +73,15 @@ export function Todo({ todo }: TodoProps) {
                 >
                   delete
                 </button>
+              </div>
+            )}
+            {sessionData?.user && (
+              <div className="flex flex-row items-center justify-center">
+                <Link href={`/todo/${id}`}>
+                  <button className="btn-error btn-sm btn" type="button">
+                    <span>Comments {comments.length}</span>
+                  </button>
+                </Link>
               </div>
             )}
           </div>
