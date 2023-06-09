@@ -43,7 +43,11 @@ export function Todo({ todo }: TodoProps) {
                 onChange={(e) => doneMutation({ id, done: e.target.checked })}
               />
               <span className="label-text block truncate text-lg text-white">
-                {content}
+                {done ? (
+                  <span className="line-through">{content}</span>
+                ) : (
+                  <span>{content}</span>
+                )}
               </span>
             </label>
             <div className="flex flex-col justify-center">

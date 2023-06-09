@@ -1,14 +1,7 @@
 import { api } from "../utils/api";
 import { Todo } from "./Todo";
-// import { useRouter } from "next/router";
 
 export function Todos() {
-  // const router = useRouter();
-  // const todoId = router.query.todoId as string;
-  // const { data: commentsData } = api.comment.getAllComments.useQuery({
-  //   todoId,
-  // });
-  // console.log(typeof commentsData);
   const { data: todos, isLoading, isError } = api.todo.getAll.useQuery();
 
   if (isLoading) return <div>Loading...</div>;
