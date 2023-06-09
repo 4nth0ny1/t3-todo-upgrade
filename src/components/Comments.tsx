@@ -1,5 +1,6 @@
 import { Comment } from "./Comment";
 import { api } from "../utils/api";
+import { CreateComment } from "./CreateComment";
 
 type DataIdProps = {
   todoId: string;
@@ -15,6 +16,7 @@ export function Comments({ todoId }: DataIdProps) {
   return (
     <div className="mb-4 w-1/2 rounded-xl bg-purple-700 p-4 text-white">
       <h2 className="text-center text-2xl">Comments</h2>
+      <CreateComment />
       {data?.map((comment) => {
         return <Comment key={comment.id} comment={comment} />;
       })}

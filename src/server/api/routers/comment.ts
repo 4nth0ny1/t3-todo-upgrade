@@ -1,6 +1,7 @@
 import { z } from "zod";
 import {
   createTRPCRouter,
+  protectedProcedure,
   publicProcedure,
 
 } from "~/server/api/trpc";
@@ -17,18 +18,32 @@ export const commentRouter = createTRPCRouter({
                 id: input.todoId
             }
         }, 
-        // include: {
-        //     user: true,
-        //     todo: {
-        //         select: {
-        //             userId: true,
-        //             content: true
-        //         }
-        //     }
-        // }
     });
     return comments
   }),
 
+  createComment: protectedProcedure
+  .input(z.object({
+    message: z.string(),
+    todoId: z.string(),
+  }))
+  .mutation(({ctx, input}) => {
+    
+    return ctx.prisma.comment.create({
+      data: {
+        message: input.message,
+        user: {
+          connect: {
+            id: ctx.session.user.id
+          }
+        }, 
+        // todo: {
+        //   connect: {
+        //     todoId
+        //   }
+        // }
+      }
+    })
+  })
 
 });
