@@ -31,15 +31,18 @@ export function Comment({ comment }: CommentProps) {
           comment.createdAt
         ).fromNow()}`}</span>
       </div>
+
       <div className="flex flex-row justify-between">
         <p className="pr-4">{message}</p>
-        <button
-          onClick={() => deleteCommentMutation(id)}
-          className="btn-accent btn-sm btn w-[70px]"
-          type="button"
-        >
-          delete
-        </button>
+        {sessionData?.user && (
+          <button
+            onClick={() => deleteCommentMutation(id)}
+            className="btn-accent btn-sm btn w-[70px]"
+            type="button"
+          >
+            delete
+          </button>
+        )}
       </div>
     </div>
   );

@@ -87,15 +87,13 @@ export function Todo({ todo }: TodoProps) {
                 </button>
               </div>
             )}
-            {sessionData?.user && (
-              <div className="flex flex-row items-center justify-center">
-                <Link href={`/todo/${id}`}>
-                  <button className="btn-error btn-sm btn" type="button">
-                    <span>Comments {comments.length}</span>
-                  </button>
-                </Link>
-              </div>
-            )}
+            <div className="flex flex-row items-center justify-center">
+              <Link href={`/todo/${id}`}>
+                <button className="btn-error btn-sm btn" type="button">
+                  <span>Comments {comments.length}</span>
+                </button>
+              </Link>
+            </div>
           </div>
         </div>
       )}
