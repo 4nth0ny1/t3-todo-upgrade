@@ -37,11 +37,11 @@ export const commentRouter = createTRPCRouter({
             id: ctx.session.user.id
           }
         }, 
-        // todo: {
-        //   connect: {
-        //     todoId
-        //   }
-        // }
+        todo: {
+          connect: {
+            id: input.todoId
+          }
+        }
       }
     })
   })

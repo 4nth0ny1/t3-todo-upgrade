@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { api } from "../utils/api";
-// import { useRouter } from "next/router";
+import { useRouter } from "next/router";
 
 export function CreateComment() {
   const [input, setInput] = useState("");
-  //   const router = useRouter();
-  //   const todoId = router.query.todoId as string;
+  const router = useRouter();
+  const todoId = router.query.todoId as string;
 
   const ctx = api.useContext();
 
@@ -21,7 +21,7 @@ export function CreateComment() {
       onSubmit={(e) => {
         e.preventDefault();
         // const payload = { input, todoId };
-        mutate(input);
+        mutate({ message: input, todoId: todoId });
       }}
       className="flex flex-row gap-4 pt-10"
     >
