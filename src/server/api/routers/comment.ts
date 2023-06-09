@@ -18,6 +18,7 @@ export const commentRouter = createTRPCRouter({
                 id: input.todoId
             }
         }, 
+        orderBy: [{ createdAt: "desc" }],
     });
     return comments
   }),

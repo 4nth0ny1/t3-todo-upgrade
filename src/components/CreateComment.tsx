@@ -20,7 +20,6 @@ export function CreateComment() {
     <form
       onSubmit={(e) => {
         e.preventDefault();
-        // const payload = { input, todoId };
         mutate({ message: input, todoId: todoId });
       }}
       className="flex flex-row gap-4 pt-10"
