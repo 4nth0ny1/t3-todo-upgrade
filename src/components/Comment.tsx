@@ -15,18 +15,18 @@ export function Comment({ comment }: CommentProps) {
 
   return (
     <div className="border-b p-4">
-      <div className="flex flex-row justify-end">
-        <p>{sessionData?.user.name}</p>
-        <span className="font-thin">{` · ${dayjs(
+      <div className="flex flex-row justify-end pb-2">
+        <p className="pr-1 font-bold italic">{sessionData?.user.name}</p>
+        <span className="font-thin italic">{` · ${dayjs(
           comment.createdAt
         ).fromNow()}`}</span>
       </div>
       {message ? (
         <div className="flex">
-          <p className="pr-1">{message}</p>
+          <p className="">{message}</p>
         </div>
       ) : (
-        "No Comments Yet"
+        <p>No Comments Yet</p>
       )}
     </div>
   );

@@ -42,7 +42,9 @@ export function Todo({ todo }: TodoProps) {
                 className="checkbox-secondary checkbox"
                 onChange={(e) => doneMutation({ id, done: e.target.checked })}
               />
-              <span className="label-text text-lg text-white">{content}</span>
+              <span className="label-text block truncate text-lg text-white">
+                {content}
+              </span>
             </label>
             <div className="flex flex-col justify-center">
               <Link href={`/todo/${id}`}>
