@@ -22,7 +22,7 @@ export function CreateComment() {
         e.preventDefault();
         mutate({ message: input, todoId: todoId });
       }}
-      className="flex flex-row gap-4 pt-10"
+      className="flex w-full flex-row justify-center gap-4 pt-10"
     >
       <input
         type="text"

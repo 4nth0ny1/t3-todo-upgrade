@@ -12,7 +12,8 @@ export const todoRouter = createTRPCRouter({
     return await ctx.prisma.todo.findMany({
       include: {
         comments: true
-      }
+      },
+      orderBy: [{ createdAt: "desc" }],
     });
   }),
 

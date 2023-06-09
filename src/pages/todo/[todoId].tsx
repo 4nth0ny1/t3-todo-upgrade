@@ -15,8 +15,7 @@ const SingleTodoPage: NextPage = () => {
 
   return (
     <main className="flex min-h-screen flex-col items-center bg-gradient-to-b from-[#2e026d] to-[#15162c]">
-      <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16 ">
-        <div className="flex flex-col items-center gap-2"></div>
+      <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16">
         <p className="text-white">{data?.content}</p>
       </div>
       <Comments todoId={todoId} />

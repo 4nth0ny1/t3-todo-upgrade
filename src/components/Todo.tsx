@@ -4,13 +4,17 @@ import Link from "next/link";
 import { Fragment, useState } from "react";
 import { EditTodo } from "./EditTodo";
 import { useSession } from "next-auth/react";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
 
 type TodoProps = {
   todo: Todo;
 };
 
+dayjs.extend(relativeTime);
+
 export function Todo({ todo }: TodoProps) {
-  const { id, content, done, comments } = todo;
+  const { id, content, done, comments, createdAt } = todo;
   const [editing, setEditing] = useState(false);
   const { data: sessionData } = useSession();
 
@@ -35,28 +39,32 @@ export function Todo({ todo }: TodoProps) {
       ) : (
         <div>
           <div className="form-control flex flex-row justify-between gap-4 p-4">
-            <label className="label min-w-[300px] cursor-pointer gap-4">
+            <div className="gap-4 pr-4">
+              <span className="font-thin italic">{`${dayjs(
+                createdAt
+              ).fromNow()}`}</span>
+            </div>
+            <div className="flex flex-col justify-center">
               <input
                 type="checkbox"
                 checked={done}
                 className="checkbox-secondary checkbox"
                 onChange={(e) => doneMutation({ id, done: e.target.checked })}
               />
+            </div>
+            <label className="label min-w-[300px] cursor-pointer gap-4">
               <span className="label-text block truncate text-lg text-white">
                 {done ? (
-                  <span className="line-through">{content}</span>
+                  <Link href={`/todo/${id}`}>
+                    <span className="line-through">{content}</span>
+                  </Link>
                 ) : (
-                  <span>{content}</span>
+                  <Link href={`/todo/${id}`}>
+                    <span>{content}</span>
+                  </Link>
                 )}
               </span>
             </label>
-            <div className="flex flex-col justify-center">
-              <Link href={`/todo/${id}`}>
-                <button className="btn-sm btn" type="button">
-                  show
-                </button>
-              </Link>
-            </div>
             {sessionData?.user && (
               <div className="flex flex-col justify-center">
                 <button
